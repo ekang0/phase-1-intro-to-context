@@ -1,4 +1,3 @@
-// Your code here
 function createEmployeeRecord(array) {
   let testEmployee = {
     firstName: array[0],
@@ -42,32 +41,35 @@ function createTimeOutEvent(recordObj, dateStamp){
   return recordObj;
 };
 
+let bpRecord = createEmployeeRecord(["Byron", "Poodle", "Mascot", 3]);
+let updatedBpRecordIn = createTimeInEvent(bpRecord, "2014-02-28 1400");
+let updatedBpRecordOut = createTimeOutEvent(bpRecord, "2014-02-28 1700");
+//console.log(bpRecord);
+//console.log(updatedBpRecordIn);
+//console.log(updatedBpRecordOut);
+//console.log(bpRecord);
+
+
 function hoursWorkedOnDate(recordObj, date){
   let dateIndexIn = recordObj.timeInEvents.findIndex(timeInElement => timeInElement.date === date);
+        //console.log(dateIndex);
   let dateIndexOut = recordObj.timeOutEvents.findIndex(timeOutElement => timeOutElement.date === date);
+       //console.log(dateIndexOut);
   let timeIn = recordObj.timeInEvents[dateIndexIn].hour;
+        console.log(`${timeIn} is the time in`);
+        console.log(typeof timeIn);
   let timeOut = recordObj.timeOutEvents[dateIndexOut].hour;
-  let hoursWorkedInt = (timeOut - timeIn)/100;
-  return hoursWorkedInt;
-};
+        console.log(`${timeOut} is the time out`);
+        console.log(typeof timeOut);
 
-function wagesEarnedOnDate(recordObj, date){
-  let hoursWorked = hoursWorkedOnDate(recordObj, date);
-  let hourlyPay = recordObj.payPerHour;
-  let payOwed = hoursWorked * hourlyPay;
-  return payOwed;
-};
+  let hoursWorkedInt = timeOut - timeIn;
+    console.log(hoursWorkedInt);
+    console.log(typeof hoursWorkedInt);
 
-function allWagesFor(recordObj){
-  let allDates = recordObj.timeInEvents.map(objElement => objElement.date);
-  //array of all the dates the employee worked
-  let payOwedByDate = allDates.map(date => wagesEarnedOnDate(recordObj, date));
-  let totalPayAllDatesNum = payOwedByDate.reduce((previousVal, currentVal) => previousVal + currentVal);
-  return totalPayAllDatesNum;
-};
+/*
+  let hoursWorkedInt = parseInt(timeOut - timeIn);
+  return hoursWorkedInt*/
+}; 
 
-function calculatePayroll(arrayOfRecords){
-  let arrayTotalPayAllDatesPerRecord = arrayOfRecords.map(recordObj => allWagesFor(recordObj));
-  let totalPayAllDatesAllEmployees = arrayTotalPayAllDatesPerRecord.reduce((previousVal, currentValue)=> previousVal +currentValue);
-  return totalPayAllDatesAllEmployees;
-};
+
+hoursWorkedOnDate(bpRecord, '2014-02-28');
